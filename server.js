@@ -1,8 +1,12 @@
+require("dotenv").config();
 const express = require("express");
-// const dotenv = require('dotenv');
 const app = express();
+const mongoose = require("mongoose");
 
-// dotenv.config;
+mongoose.connect(process.env.DATABASE_URL);
+const db = mongoose.connection;
+db.on("error", (e) => console.error(e));
+db.once("open", () => console.log("Connected to Database"));
 
 const port = process.env.PORT || 3000;
 
@@ -22,5 +26,5 @@ app.use("/api/reservations", reservationsRouter);
 app.use("/api/slots", slotsRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Book Me app server is running on port : ${port}`);
 });

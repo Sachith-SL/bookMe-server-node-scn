@@ -7,7 +7,7 @@ const router = express.Router();
 const users = [
   { id: 1, name: "Sachith", mobile: "0765510800", role: "ADMIN" },
   { id: 2, name: "Nikith", mobile: "0712345678", role: "CUSTOMER" },
-  { id: 3, name: "Sanju", mobile: "0723456789", role: "CUSTOMER" },
+  { id: 3, name: "Sanju", mobile: "0723456789", role: "CUSTOMER" }
 ];
 
 router.post("/", (req, res) => {
@@ -40,7 +40,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  console.log(`get user for ${req.params.id}`);
+  // console.log(`get user for ${req.params.id}`);
   // res.send(`no ${req.params.id} User details`);
   // res.send(req.query.sortBy);
   let user = users.find((u) => u.id === parseInt(req.params.id));
@@ -49,7 +49,6 @@ router.get("/:id", (req, res) => {
       .status(404)
       .write(`The user with given id :${req.params.id} was not found`);
   res.send(user);
-  res.end(user);
 });
 
 router.put("/:id", (req, res) => {
