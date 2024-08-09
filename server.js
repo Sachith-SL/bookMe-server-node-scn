@@ -1,18 +1,25 @@
 const express = require("express");
+// const dotenv = require('dotenv');
 const app = express();
-const port = 3000;
+
+// dotenv.config;
+
+const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("index", { text: "world" });
-  // res.status(404).json({ statusCode: "404", message: "Page Not Found" });
-  // res.send('Hello World!')
-});
-
+const homeRouter = require("./routes/home");
 const userRouter = require("./routes/users");
+const reservationsRouter = require("./routes/reservations");
+const slotsRouter = require("./routes/slots");
 
-app.use("/users", userRouter);
+app.use(express.json());
+
+app.use("/", homeRouter);
+app.use("/api", homeRouter);
+app.use("/api/users", userRouter);
+app.use("/api/reservations", reservationsRouter);
+app.use("/api/slots", slotsRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
